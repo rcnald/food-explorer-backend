@@ -1,8 +1,7 @@
-const UserService = require("../services/user.services")
+const UserService = require("../services/user.service")
 const UserRepository = require("../repositories/user.repository")
 
 const userRepository = new UserRepository()
-
 const userService = new UserService(userRepository)
 
 class UserController {

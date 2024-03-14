@@ -1,4 +1,4 @@
-const { hashPassword, isEmailValid, ClientError } = require("../lib/utils")
+const { isEmailValid, ClientError } = require("../lib/utils")
 
 class UserService {
   constructor(repository){
@@ -10,15 +10,15 @@ class UserService {
       throw new ClientError("Email invalido!")
     }
 
-    const isEmailTaken = await this.repository.isEmailTaken({email})
+    const isEmailTaken = await this.repository.isEmailTaken({ email })
 
     if(isEmailTaken){
       throw new ClientError("Email já esta em uso!")
     }
     
-    const hashedPassword = await hashPassword(password)
+    const hashedPassword = await this.repository.hashPassword({ password })
 
-    return await this.repository.create({email, name, password: hashedPassword})
+   await this.repository.create({email, name, password: hashedPassword})
   }
 }
 
