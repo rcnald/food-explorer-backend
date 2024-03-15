@@ -17,7 +17,7 @@ class UserRepository {
   }
 
   async hashPassword({ password = null, salt = 10 }){
-    const hashedPassword = password ?? bcrypt.hash(password, salt)
+    const hashedPassword = password && bcrypt.hash(password, salt)
 
     return hashedPassword
   }
