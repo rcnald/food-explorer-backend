@@ -3,3 +3,7 @@
 .env*
 
 src/database/database.db
+
+tmp/*
+!tmp/uploads
+!tmp/uploads/.gitkeep

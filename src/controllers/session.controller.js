@@ -10,7 +10,11 @@ class SessionController {
     
     const token = await sessionService.create({ email, password })
 
-    return res.json({ token })
+    return res.json({
+      status:"success",
+      message:"Usuário autenticado com sucesso!",
+      token
+    })
   }
 }
 
