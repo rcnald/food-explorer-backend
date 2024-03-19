@@ -9,5 +9,6 @@ const upload = multer(uploadConfigs.MULTER)
 const dishController = new DishController()
 
 dishRouter.post('/', upload.single("photo"), dishController.create)
+dishRouter.get('/', dishController.index)
 
 module.exports = dishRouter

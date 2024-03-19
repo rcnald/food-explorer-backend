@@ -26,6 +26,12 @@ class DishService{
       await this.repository.createIngredients({ dish_id: id, ingredients })
     }
   }
+
+  async index({ category, query, ingredients }){
+    const dishes = await this.repository.getDishes({ category, query, ingredients })
+
+    return dishes
+  }
 }
 
 module.exports = DishService

@@ -23,6 +23,14 @@ class dishController {
       message:"Prato criado com sucesso!",
     })
   }
+
+  async index(req, res){
+    const { category, query, ingredients } = req.query
+
+    const dishes = await dishService.index({ category, query, ingredients })
+
+    return res.status(200).json({ dishes })
+  }
 }
 
 module.exports = dishController
