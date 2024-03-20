@@ -27,6 +27,41 @@ class DishService{
     }
   }
 
+  async update({ id, photo, name, description, category, ingredients, price }){
+    if (!name || !category || !price || !description) {
+      throw new ClientError(
+        "Name, category, price, ou description estão vazias!"
+      );
+    }
+
+    const { photo: dishPhoto } = await this.repository.getDish({ id })
+
+    if(photo){
+      await this.repository.deleteFile({ fileName: dishPhoto })
+      await this.repository.saveFile({ fileName: photo })
+    }
+
+    await this.repository.updateDish({ 
+      id, 
+      name, 
+      description, 
+      photo,
+      category, 
+      price 
+    })
+
+    if(ingredients){
+      await this.repository.deleteIngredients({ dish_id: id })
+      await this.repository.createIngredients({ dish_id: id, ingredients })
+    }
+  }
+
+  async show({ id }){
+    const dish = await this.repository.getDish({ id })
+
+    return dish
+  }
+
   async index({ category, query, ingredients }){
     const dishes = await this.repository.getDishes({ category, query, ingredients })
 

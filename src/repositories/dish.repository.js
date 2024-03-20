@@ -27,6 +27,31 @@ class UserRepository {
     await diskStorage.saveFile(fileName)
   }
 
+  async deleteFile({ fileName }){
+    const diskStorage = new DiskStorage()
+    
+    await diskStorage.deleteFile(fileName)
+  }
+
+  async getDish({ id }){
+    const [ dish ] = await knex('dishes').where({ id })
+
+    const ingredients = await knex('ingredients').select(['name', 'id']).where('dish_id', id)
+      
+    return { ...dish, ingredients }
+  }
+
+  async updateDish({ id, photo, name, description, category, price }){
+    await knex('dishes')
+      .where({ id })
+      .update({ photo, name, description, category, price })
+
+  }
+
+  async deleteIngredients({ dish_id }){
+    await knex('ingredients').where({ dish_id }).del()
+  }
+
   async getDishes({ category, query }){
     let dishes 
 
@@ -37,8 +62,7 @@ class UserRepository {
         'dishes.name',
         'dishes.description',
         'dishes.price',
-        'dishes.photo',
-        'dishes.category'
+        'dishes.photo'
       ])
       .where({ category })
       .whereLike('ingredients.name', `%${query}%`)
@@ -49,12 +73,6 @@ class UserRepository {
         .where({ category })
         .whereLike('name', `%${query}%`)
     }
-
-    dishes = await Promise.all(dishes.map(async (dish) => {
-      const ingredients = await knex('ingredients').select(['name', 'id']).where('dish_id', dish.id)
-      
-      return { ...dish, ingredients }
-    }))
 
     return dishes
   }

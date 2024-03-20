@@ -24,6 +24,35 @@ class dishController {
     })
   }
 
+  async update(req, res){
+    const { name, description, category, ingredients, price } = req.body
+    const photo = req.file?.filename
+    const { id } = req.params
+
+    await dishService.update({ 
+      id, 
+      photo, 
+      name, 
+      description, 
+      category, 
+      ingredients, 
+      price
+    })
+
+    return res.status(200).json({
+      status:"success",
+      message:"Prato atualizado com sucesso!",
+    })
+  }
+
+  async show(req, res){
+    const { id } = req.params
+
+    const dish = await dishService.show({ id })
+
+    return res.status(200).json({ dish })
+  }
+
   async index(req, res){
     const { category, query, ingredients } = req.query
 

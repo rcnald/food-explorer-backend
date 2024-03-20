@@ -10,5 +10,7 @@ const dishController = new DishController()
 
 dishRouter.post('/', upload.single("photo"), dishController.create)
 dishRouter.get('/', dishController.index)
+dishRouter.get('/:id', dishController.show)
+dishRouter.put('/:id/edit',upload.single("photo"), dishController.update)
 
 module.exports = dishRouter
