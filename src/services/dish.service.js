@@ -8,7 +8,7 @@ class DishService{
   async create({ photo, name, category, ingredients, price, description  }){
     if (!photo || !name || !category || !price || !description) {
       throw new ClientError(
-        "Avatar, name, category, price, ou description estão vazias!"
+        "Photo, name, category, price, ou description estão vazias!"
       );
     }
 
@@ -28,16 +28,20 @@ class DishService{
   }
 
   async update({ id, photo, name, description, category, ingredients, price }){
-    if (!name || !category || !price || !description) {
+    if (!name || !photo || !category || !price || !description) {
       throw new ClientError(
         "Name, category, price, ou description estão vazias!"
       );
     }
 
-    const { photo: dishPhoto } = await this.repository.getDish({ id })
+    const dish  = await this.repository.getDish({ id })
+
+    if(!dish){
+      throw new ClientError("Prato não encontrado!", 404);
+    }
 
     if(photo){
-      await this.repository.deleteFile({ fileName: dishPhoto })
+      await this.repository.deleteFile({ fileName: dish.photo })
       await this.repository.saveFile({ fileName: photo })
     }
 
@@ -59,11 +63,31 @@ class DishService{
   async show({ id }){
     const dish = await this.repository.getDish({ id })
 
+    if(!dish){
+      throw new ClientError("Prato não encontrado!", 404);
+    }
+
     return dish
+  }
+
+  async delete({ id }){
+    const dish = await this.repository.getDish({ id })
+
+    console.log(dish)
+
+    if(!dish){
+      throw new ClientError("Prato não encontrado!", 404);
+    }
+
+    await this.repository.deleteDish({ id })
   }
 
   async index({ category, query, ingredients }){
     const dishes = await this.repository.getDishes({ category, query, ingredients })
+
+    if(!dishes.length){
+      throw new ClientError("Pratos não encontrados!", 404);
+    }
 
     return dishes
   }

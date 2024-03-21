@@ -37,8 +37,16 @@ class UserRepository {
     const [ dish ] = await knex('dishes').where({ id })
 
     const ingredients = await knex('ingredients').select(['name', 'id']).where('dish_id', id)
-      
-    return { ...dish, ingredients }
+  
+    if(ingredients.length){
+      return { ...dish, ingredients }
+    }
+
+    return dish 
+  }
+
+  async deleteDish({ id }){
+    await knex('dishes').where({ id }).del()
   }
 
   async updateDish({ id, photo, name, description, category, price }){

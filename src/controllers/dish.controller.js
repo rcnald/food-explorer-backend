@@ -7,7 +7,7 @@ const dishService = new DishService(dishRepository)
 class dishController {
   async create(req, res) {
     const { name, category, ingredients, price, description } = req.body
-    const photo = req.file.filename
+    const photo = req.file?.filename
 
     await dishService.create({ 
       photo, 
@@ -51,6 +51,17 @@ class dishController {
     const dish = await dishService.show({ id })
 
     return res.status(200).json({ dish })
+  }
+
+  async delete(req, res){
+    const { id } = req.params
+
+    await dishService.delete({ id })
+
+    return res.status(200).json({ 
+      status:"success",
+      message:"Prato excluído com sucesso!",
+     })
   }
 
   async index(req, res){
