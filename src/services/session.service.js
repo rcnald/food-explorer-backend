@@ -22,7 +22,7 @@ class SessionService{
       throw new ClientError("Email ou/e senha incorretos!", 401)
     }
 
-    const token = this.repository.createToken({ id: user.id })
+    const token = this.repository.createToken({ id: user.id, role: user.role })
 
     return token
   }

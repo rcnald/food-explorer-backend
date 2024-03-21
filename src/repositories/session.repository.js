@@ -14,10 +14,10 @@ class SessionRepository {
     return await bcrypt.compare(password, currentPassword)
   }
 
-  createToken({ id }){
+  createToken({ id, role }){
     const { secret, expiresIn } = auth.jwt;
 
-    const token = sign({}, secret, {
+    const token = sign({ role}, secret, {
       subject: String(id),
       expiresIn: expiresIn,
     });
