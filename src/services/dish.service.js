@@ -28,7 +28,7 @@ class DishService{
   }
 
   async update({ id, photo, name, description, category, ingredients, price }){
-    if (!name || !photo || !category || !price || !description) {
+    if (!name || !category || !price || !description) {
       throw new ClientError(
         "Name, category, price, ou description estão vazias!"
       );
@@ -57,7 +57,10 @@ class DishService{
     if(ingredients){
       await this.repository.deleteIngredients({ dish_id: id })
       await this.repository.createIngredients({ dish_id: id, ingredients })
+    } else {
+      await this.repository.deleteIngredients({ dish_id: id })
     }
+
   }
 
   async show({ id }){
@@ -84,10 +87,6 @@ class DishService{
 
   async index({ category, query, ingredients }){
     const dishes = await this.repository.getDishes({ category, query, ingredients })
-
-    if(!dishes.length){
-      throw new ClientError("Pratos não encontrados!", 404);
-    }
 
     return dishes
   }

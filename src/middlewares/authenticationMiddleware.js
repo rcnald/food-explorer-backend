@@ -3,13 +3,13 @@ const authConfig = require("../configs/auth");
 const { ClientError } = require("../lib/utils");
 
 function authenticationMiddleware(req, res, next){
-  const auth = req.headers.authorization;
+  const auth = req.headers;
 
-  if (!auth) {
+  if (!auth.cookie) {
     throw new ClientError("JWT Token não foi informado!", 401);
   }
 
-  const token = auth.split(' ')[1]
+  const token = auth.cookie.split('token=')[1]
 
   try {
     const { sub: user_id, role} = jsonwebtoken.verify(token, authConfig.jwt.secret)

@@ -17,8 +17,9 @@ class UserRepository {
         name: ingredient
       }
     })
-
+    
     await knex("ingredients").insert(ingredientsToInsert)
+
   }
 
   async saveFile({ fileName }){
@@ -38,11 +39,7 @@ class UserRepository {
 
     const ingredients = await knex('ingredients').select(['name', 'id']).where('dish_id', id)
   
-    if(ingredients.length){
-      return { ...dish, ingredients }
-    }
-
-    return dish 
+    return { ...dish, ingredients: ingredients ?? [] }
   }
 
   async deleteDish({ id }){
@@ -50,10 +47,15 @@ class UserRepository {
   }
 
   async updateDish({ id, photo, name, description, category, price }){
-    await knex('dishes')
-      .where({ id })
-      .update({ photo, name, description, category, price })
-
+    if(photo){
+      await knex('dishes')
+        .where({ id })
+        .update({ photo, name, description, category, price })
+    } else {
+      await knex('dishes')
+        .where({ id })
+        .update({ name, description, category, price })
+    }
   }
 
   async deleteIngredients({ dish_id }){

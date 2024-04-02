@@ -15,6 +15,10 @@ class UserService {
     if(isEmailTaken){
       throw new ClientError("Email já esta em uso!")
     }
+
+    if(password.length < 6){
+      throw new ClientError("A Senha deve ter pelo menos 6 caracteres!")
+    }
     
     const hashedPassword = await this.repository.hashPassword({ password })
 

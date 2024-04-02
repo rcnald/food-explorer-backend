@@ -17,7 +17,7 @@ class SessionRepository {
   createToken({ id, role }){
     const { secret, expiresIn } = auth.jwt;
 
-    const token = sign({ role}, secret, {
+    const token = sign({ role }, secret, {
       subject: String(id),
       expiresIn: expiresIn,
     });

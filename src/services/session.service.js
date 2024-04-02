@@ -24,7 +24,7 @@ class SessionService{
 
     const token = this.repository.createToken({ id: user.id, role: user.role })
 
-    return token
+    return {token, user}
   }
 }
 

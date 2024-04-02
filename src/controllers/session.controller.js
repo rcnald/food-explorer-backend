@@ -8,13 +8,26 @@ class SessionController {
   async create(req, res){
     const { email, password } = req.body
     
-    const token = await sessionService.create({ email, password })
+    const { token, user } = await sessionService.create({ email, password })
 
-    return res.json({
-      status:"success",
-      message:"Usuário autenticado com sucesso!",
-      token
-    })
+
+    return res.cookie("token", token, {
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true,
+      maxAge: 15 * 60 * 10000
+    }).json({
+      status: "success",
+      message: "Usuário autenticado com sucesso!",
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        favoriteDishesId: user.favorites_dishes_id,
+      }
+    });
+    
   }
 }
 
