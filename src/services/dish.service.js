@@ -76,8 +76,6 @@ class DishService{
   async delete({ id }){
     const dish = await this.repository.getDish({ id })
 
-    console.log(dish)
-
     if(!dish){
       throw new ClientError("Prato não encontrado!", 404);
     }

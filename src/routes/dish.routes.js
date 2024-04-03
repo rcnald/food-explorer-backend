@@ -18,6 +18,6 @@ dishRouter.use(authorizationMiddleware({ accessRole: ['admin'] }))
 
 dishRouter.post('/', upload.single("photo"), dishController.create)
 dishRouter.patch('/:id/edit',upload.single("photo"), dishController.update)
-dishRouter.delete('/delete/:id', dishController.delete)
+dishRouter.delete('/:id', dishController.delete)
 
 module.exports = dishRouter
