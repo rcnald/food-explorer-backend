@@ -1,0 +1,108 @@
+@baseUrl = http://localhost:3334
+
+### @name create-user
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name":"John Doe",
+  "email":"johndoe@email.com",
+  "password":"123456"
+}
+
+###
+
+### @name authenticate
+POST {{baseUrl}}/session
+Content-Type: application/json
+
+{
+  "email":"johndoe@email.com",
+	"password":"123"
+}
+
+### @name create-dish
+POST {{baseUrl}}/dish
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"
+
+Arroz
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="category"
+
+meal
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="ingredients"
+
+sal,alho
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="price"
+
+1800
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="description"
+
+Arroz soltinho
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="photo"; filename="rice.png"
+Content-Type: image/png
+
+< path/file.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+### @name update-dish
+PATCH  {{baseUrl}}/dish/1/edit
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"
+
+Arroz
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="category"
+
+meal
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="ingredients"
+
+sal,alho
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="price"
+
+1800
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="description"
+
+Arroz soltinho
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="photo"; filename="rice.png"
+Content-Type: image/png
+
+< path/file.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+### @name delete-dish
+DELETE {{baseUrl}}/dish/3
+
+###
+
+### @name show-dish
+GET {{baseUrl}}/dish/4
+
+###
+
+### @name index-dishes
+GET {{baseUrl}}/dish?category=meal&query=
+
+###
+
+### @name show-file
+GET {{baseUrl}}/files/filename.png
+
+###
