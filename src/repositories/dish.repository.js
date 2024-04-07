@@ -39,7 +39,11 @@ class UserRepository {
 
     const ingredients = await knex('ingredients').select(['name', 'id']).where('dish_id', id)
   
-    return { ...dish, ingredients: ingredients ?? [] }
+    if(dish){
+      return { ...dish, ingredients: ingredients ?? [] }
+    } else {
+      return null
+    }
   }
 
   async deleteDish({ id }){

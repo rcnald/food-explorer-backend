@@ -24,7 +24,6 @@ class SessionController {
         name: user.name,
         email: user.email,
         role: user.role,
-        favoriteDishesId: user.favorites_dishes_id,
       }
     });
     

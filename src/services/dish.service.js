@@ -35,7 +35,7 @@ class DishService{
     }
 
     const dish  = await this.repository.getDish({ id })
-
+  
     if(!dish){
       throw new ClientError("Prato não encontrado!", 404);
     }
@@ -81,6 +81,7 @@ class DishService{
     }
 
     await this.repository.deleteDish({ id })
+    await this.repository.deleteFile({ fileName: dish.photo })
   }
 
   async index({ category, query, ingredients }){

@@ -12,7 +12,7 @@ const { errorMiddleware } = require("./middlewares")
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-  origin:['http://localhost:5173'],
+  origin:[process.env.APP_URL],
   credentials:true
 }))
 
