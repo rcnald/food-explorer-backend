@@ -21,5 +21,5 @@ app.use(routes)
 app.use(errorMiddleware)
 
 app.listen(process.env.PORT, () => console.log(
-  "Listen to port: "+process.env.PORT
+  "Listen to port: " + process.env.PORT || 3333
 ))
