@@ -69,7 +69,11 @@ class UserRepository {
   async getDishes({ category, query }){
     let dishes 
 
-    dishes = await knex('ingredients')
+    dishes = await knex('dishes')
+      .where({ category })
+
+    if(query){
+      dishes = await knex('ingredients')
       .distinct('dishes.id')
       .select([
         'dishes.id',
@@ -81,11 +85,12 @@ class UserRepository {
       .where({ category })
       .whereLike('ingredients.name', `%${query}%`)
       .innerJoin('dishes', 'dishes.id', 'ingredients.dish_id')
-
-    if(!dishes.length){
-      dishes = await knex('dishes')
+      
+      if(!dishes.length){
+        dishes = await knex('dishes')
         .where({ category })
         .whereLike('name', `%${query}%`)
+      }
     }
 
     return dishes

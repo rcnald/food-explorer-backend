@@ -65,9 +65,9 @@ class dishController {
   }
 
   async index(req, res){
-    const { category, query, ingredients } = req.query
+    const { category, query } = req.query
 
-    const dishes = await dishService.index({ category, query, ingredients })
+    const dishes = await dishService.index({ category, query })
 
     return res.status(200).json({ dishes })
   }
