@@ -3,7 +3,6 @@
 .env*
 !.env.example
 
-src/database/database.db
 
 tmp/*
 !tmp/uploads
