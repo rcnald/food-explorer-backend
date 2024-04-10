@@ -4,6 +4,8 @@ Projeto final da trilha Explorer da Rocketseat, que tem como objetivo colocar em
 
 Food Explorer é uma plataforma de que simula um catalogo digital de restaurante, onde oferece ao usuário a diversos tipos de bebidas e pratos, com informações adicionais, como nome e descrição do prato, seus ingredients, fotos e preço, dando uma sensação de mais controle/segurança ao cliente.
 
+![Preview do projeto](food-explorer-cover.jpg)
+
 ## Funcionalidades
 
 - **Pesquisa:** Pesquisar pratos por nome ou ingredientes usados em sua preparação.
