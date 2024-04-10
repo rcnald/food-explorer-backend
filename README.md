@@ -55,11 +55,12 @@ Antes de começar, certifique-se de ter o [Node.js](https://nodejs.org/) v20.6.0
 
 ## Tecnologias usadas
 Tecnologias e bibliotecas utilizadas para a construção do projeto. 
-- knex
-- express
-- bcrypt
-- sqlite
-- cookie-parser
-- cors
-- multer
-- jwt
+- [knex](https://knexjs.org/)
+- [express](https://expressjs.com/)
+- [bcrypt](https://www.npmjs.com/package/bcrypt)
+- [sqlite](https://www.sqlite.org/)
+- [cookie-parser](https://www.npmjs.com/package/cookie-parser)
+- [cors](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
+- [multer](https://www.npmjs.com/package/multer)
+- [pm2](https://pm2.keymetrics.io/)
+- [jwt](https://jwt.io/)
